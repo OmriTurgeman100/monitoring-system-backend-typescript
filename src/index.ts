@@ -1,5 +1,6 @@
 import express from "express";
 import nodeRouter from "./routes/nodeRouter";
+import reportRouter from "./routes/reportRouter";
 
 const app = express();
 const port: number = 80;
