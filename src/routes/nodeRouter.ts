@@ -5,6 +5,10 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(nodeController.getNodes);
+  .get(nodeController.root_nodes);
+
+router
+  .route("/:id")
+  .get(nodeController.navigate_tree_data);
 
 export default router;
