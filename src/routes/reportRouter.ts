@@ -5,7 +5,7 @@ const router = express.Router()
 
 router
   .route("/")
-  // .post
+  .post(reportController.post_reports);
 
 router
   .route("/distinct")
