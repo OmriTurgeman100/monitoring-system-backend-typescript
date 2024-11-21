@@ -7,7 +7,7 @@ export const get_distinct_reports: RequestHandler = async (req, res, next) => {
       "select distinct on (title) title, time, value from reports order by title, time desc"
     );
 
-    res.status(200).json(list_of_distinct_reports);
+    res.status(200).json(list_of_distinct_reports.rows);
   } catch (error) {
     res.status(400).json(error);
   }
