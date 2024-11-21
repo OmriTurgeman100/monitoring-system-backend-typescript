@@ -33,7 +33,7 @@ export const post_reports: RequestHandler = async (req, res, next) => {
             [report_id, report_parent, title, description, value]
           );
 
-          await tree_rules_eval(report_id, report_parent);
+          await tree_rules_eval(report_parent);
         }
       }
     }
