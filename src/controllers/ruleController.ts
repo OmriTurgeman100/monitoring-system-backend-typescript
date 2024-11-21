@@ -19,11 +19,9 @@ export const post_rules: RequestHandler = async (req, res, next) => {
     const parent_id: string = req.params.id;
     const { conditions, action } = req.body;
 
-
-
-
-
-
+    console.log(
+      `parent_node_id ${parent_node_id}, condition ${conditions}, action ${action}`
+    );
 
     res.status(201).json({ message: "The POST request was successful" });
   } catch (error) {
