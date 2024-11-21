@@ -12,3 +12,13 @@ export const get_distinct_reports: RequestHandler = async (req, res, next) => {
     res.status(400).json(error);
   }
 };
+
+export const post_reports: RequestHandler = async (req, res, next) => {
+  try {
+    const {report_id, parent, title, description, value} = req.body;
+
+    
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
