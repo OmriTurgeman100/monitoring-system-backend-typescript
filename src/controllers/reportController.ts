@@ -1,5 +1,6 @@
-import { query, RequestHandler } from "express";
+import { RequestHandler } from "express";
 import pool from "../database/db";
+import tree_rules_eval from "../utils/tree_rules";
 
 export const get_distinct_reports: RequestHandler = async (req, res, next) => {
   try {
@@ -31,6 +32,8 @@ export const post_reports: RequestHandler = async (req, res, next) => {
             "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
             [report_id, report_parent, title, description, value]
           );
+
+          await tree_rules_eval(report_id, report_parent);
         }
       }
     }
