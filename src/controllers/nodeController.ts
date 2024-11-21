@@ -1,14 +1,49 @@
 import { RequestHandler } from "express";
 import pool from "../database/db";
 
-export const getNodes: RequestHandler = async (req, res) => {
+export const root_nodes: RequestHandler = async (req, res, next) => {
   try {
-    const result = await pool.query("SELECT * FROM nodes;");
+    const results = await pool.query(
+      "select * from nodes where parent is null; "
+    );
+    res.status(200).json(results.rows);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
+export const navigate_tree_data: RequestHandler = async (req, res, next) => {
+  try {
+    const tree_data_nodes = await pool.query(
+      "select * from nodes WHERE parent = $1",
+      [req.params.id]
+    );
+
+    const tree_data_reports = await pool.query(
+      "SELECT DISTINCT ON (report_id) id, report_id, parent, title, description, value, time FROM reports WHERE parent = $1 ORDER BY report_id, time DESC",
+      [req.params.id]
+    );
+
     res.status(200).json({
-      data: result.rows,
+      nodes: tree_data_nodes.rows,
+      reports: tree_data_reports.rows,
     });
   } catch (error) {
-    console.error("Database query error:", error);
-    res.status(500).json({ success: false, error: "Database error" });
+    res.status(400).json({ error });
+  }
+};
+
+export const post_node: RequestHandler = async (req, res, next) => {
+  try {
+    const { title, description, parent } = req.body;
+
+    const created_node = await pool.query(
+      "insert into nodes (title, description, parent) values ($1, $2, $3) RETURNING *",
+      [title, description, parent]
+    );
+
+    res.status(201).json(created_node.rows);
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
