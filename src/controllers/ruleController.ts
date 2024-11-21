@@ -16,10 +16,11 @@ export const get_rule: RequestHandler = async (req, res, next) => {
 
 export const post_rules: RequestHandler = async (req, res, next) => {
   try {
-    const { parent_node_id, conditions, action } = req.body;
+    const parent_id: string = req.params.id;
+    const { conditions, action } = req.body;
 
     console.log(
-      `parent_node_id ${parent_node_id}, condition ${conditions}, action ${action}`
+      `parent_node_id ${parent_id}, condition ${conditions}, action ${action},}`
     );
 
     res.status(201).json({ message: "The POST request was successful" });
