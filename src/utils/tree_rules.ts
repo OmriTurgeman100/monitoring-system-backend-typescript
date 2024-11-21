@@ -3,7 +3,7 @@ import pool from "../database/db";
 const tree_rules_eval = async (report_parent: number) => {
   //   console.log(`report_id: ${report_id}, report_parent: ${report_parent}`);
 
-  const nodes_and_reports = await pool.query(
+  const nodes = await pool.query(
     "select * from nodes where parent = $1",
     [report_parent]
   );
@@ -13,9 +13,16 @@ const tree_rules_eval = async (report_parent: number) => {
     [report_parent]
   );
 
-  console.log(nodes_and_reports.rows);
+  const nodes_data = nodes.rows
 
-  console.log(rules.rows);
+  const rules_data = rules.rows
+
+  console.log(nodes_data)
+
+  console.log(rules_data)
+  
+
+  
 };
 
 export default tree_rules_eval;
