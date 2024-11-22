@@ -1,10 +1,12 @@
 import pool from "../database/db";
 
 const tree_rules_eval = async (report_parent: number) => {
-  //   console.log(`report_id: ${report_id}, report_parent: ${report_parent}`);
+  const nodes = await pool.query("select * from nodes where parent = $1", [
+    report_parent,
+  ]);
 
-  const nodes = await pool.query(
-    "select * from nodes where parent = $1",
+  const reports = await pool.query(
+    "SELECT DISTINCT ON (report_id) id, report_id, parent, title, description, value, time FROM reports WHERE parent = $1 ORDER BY report_id, time DESC",
     [report_parent]
   );
 
@@ -13,16 +15,17 @@ const tree_rules_eval = async (report_parent: number) => {
     [report_parent]
   );
 
-  const nodes_data = nodes.rows
+  const nodes_data = nodes.rows;
 
-  const rules_data = rules.rows
+  const reports_data = reports.rows;
 
-  console.log(nodes_data)
+  const rules_data = rules.rows;
 
-  console.log(rules_data)
-  
+  console.log(reports_data);
 
-  
+  console.log(nodes_data);
+
+  console.log(rules_data);
 };
 
 export default tree_rules_eval;
