@@ -15,7 +15,7 @@ const tree_rules_eval = async (report_parent: number) => { // TODO make it run a
     [report_parent]
   );
 
-  const nodes_data = nodes.rows; 
+  const nodes_data = nodes.rows;  // *
 
   const reports_data = reports.rows;
 
