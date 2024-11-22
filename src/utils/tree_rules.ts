@@ -1,6 +1,6 @@
 import pool from "../database/db";
 
-const tree_rules_eval = async (report_parent: number) => {
+const tree_rules_eval = async (report_parent: number) => { // TODO make it run as a tree, until it reaches the root node.
   const nodes = await pool.query("select * from nodes where parent = $1", [
     report_parent,
   ]);
@@ -15,7 +15,7 @@ const tree_rules_eval = async (report_parent: number) => {
     [report_parent]
   );
 
-  const nodes_data = nodes.rows;
+  const nodes_data = nodes.rows; 
 
   const reports_data = reports.rows;
 
