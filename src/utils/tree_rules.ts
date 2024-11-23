@@ -27,9 +27,15 @@ const tree_rules_eval = async (report_parent: number) => {
   for (const rule of rules_data) {
     const rule_id: number = rule.rule_id;
     const parent_node_id: number = rule.parent_node_id;
-    
+
     if (rule.conditions.or) {
       for (const condition of rule.conditions.or) {
+        console.log(condition);
+      }
+    }
+
+    if (rule.condition.and) {
+      for (const condition of rule.conditions.and) {
         console.log(condition);
       }
     }
