@@ -1,7 +1,6 @@
 import pool from "../database/db";
 
 const tree_rules_eval = async (report_parent: number) => {
-
   let parent: number = report_parent; // * might use it in the future to examine rules and climb to the root.
 
   // TODO make it run as a tree, until it reaches the root node.
@@ -25,7 +24,15 @@ const tree_rules_eval = async (report_parent: number) => {
 
   const rules_data = rules.rows;
 
-  console.log(`rules_data: ${rules_data}`);
+  console.log(`nodes_data`);
+  for (const node of nodes_data) {
+    console.log(node);
+  }
+
+  console.log(`reports_data`);
+  for (const report of reports_data) {
+    console.log(report);
+  }
 
   for (const rule of rules_data) {
     const rule_id: number = rule.rule_id;
@@ -35,16 +42,34 @@ const tree_rules_eval = async (report_parent: number) => {
     let case_matched: boolean = false;
 
     if (rule.conditions.or) {
+      // TODO, might check if we refer to a report or a node.
       for (const condition of rule.conditions.or) {
         console.log("or");
         console.log(condition);
+
+        if (condition.node_id) {
+          console.log("node_ind");
+        }
+
+        if (condition.report_id) {
+          console.log("report");
+        }
       }
     }
 
     if (rule.conditions.and) {
+      // TODO, might check if we refer to a report or a node.
       for (const condition of rule.conditions.and) {
         console.log("and");
         console.log(condition);
+
+        if (condition.node_id) {
+          console.log("node_ind");
+        }
+
+        if (condition.report_id) {
+          console.log("report");
+        }
       }
     }
 
