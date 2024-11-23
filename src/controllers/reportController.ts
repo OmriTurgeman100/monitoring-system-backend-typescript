@@ -45,6 +45,8 @@ export const post_reports: RequestHandler = async (req, res, next) => {
 
     res.status(201).json({ message: "The POST request was successful" });
   } catch (error) {
-    res.status(400).json(error);
+    res.status(400).json({
+      message: error,
+    });
   }
 };

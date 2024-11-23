@@ -30,12 +30,14 @@ const tree_rules_eval = async (report_parent: number) => {
 
     if (rule.conditions.or) {
       for (const condition of rule.conditions.or) {
+        console.log("or");
         console.log(condition);
       }
     }
 
-    if (rule.condition.and) {
+    if (rule.conditions.and) {
       for (const condition of rule.conditions.and) {
+        console.log("and");
         console.log(condition);
       }
     }
