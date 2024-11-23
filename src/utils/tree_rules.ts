@@ -1,6 +1,9 @@
 import pool from "../database/db";
 
 const tree_rules_eval = async (report_parent: number) => {
+
+  let parent: number = report_parent; // * might use it in the future to examine rules and climb to the root.
+
   // TODO make it run as a tree, until it reaches the root node.
   const nodes = await pool.query("select * from nodes where parent = $1", [
     report_parent,
@@ -27,6 +30,9 @@ const tree_rules_eval = async (report_parent: number) => {
   for (const rule of rules_data) {
     const rule_id: number = rule.rule_id;
     const parent_node_id: number = rule.parent_node_id;
+    const action: string = rule.action;
+
+    let case_matched: boolean = false;
 
     if (rule.conditions.or) {
       for (const condition of rule.conditions.or) {
@@ -41,6 +47,8 @@ const tree_rules_eval = async (report_parent: number) => {
         console.log(condition);
       }
     }
+
+    console.log(`case matched is ${case_matched}`);
   }
 };
 
