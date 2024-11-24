@@ -24,16 +24,6 @@ const tree_rules_eval = async (report_parent: number) => {
 
   const rules_data = rules.rows;
 
-  // // console.log(`nodes_data`);
-  // for (const node of nodes_data) {
-  //   console.log(node);
-  // }
-
-  // // console.log(`reports_data`);
-  // for (const report of reports_data) {
-  //   console.log(report);
-  // }
-
   for (const rule of rules_data) {
     const rule_id: number = rule.rule_id;
     const parent_node_id: number = rule.parent_node_id;
