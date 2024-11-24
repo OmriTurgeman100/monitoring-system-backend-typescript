@@ -77,8 +77,6 @@ const tree_rules_eval = async (report_parent: number) => {
           }
         }
       }
-
-      console.log(case_matched);
     }
     // TODO, test why you get false agian
     if (rule.conditions.and) {
@@ -95,9 +93,6 @@ const tree_rules_eval = async (report_parent: number) => {
           }
 
           if (node.status !== condition.status) {
-            console.log(node.status);
-
-            console.log(condition.status);
             condition_met_and_scope = false;
             break;
           }
@@ -112,33 +107,33 @@ const tree_rules_eval = async (report_parent: number) => {
             continue;
           }
 
-          const report_value = report.value;
-          const condition_operator = condition.operator;
-          const condition_threshold = condition.value;
+          const report_value: number = report.value;
+          const condition_operator: string = condition.operator;
+          const condition_threshold: number = condition.value;
 
-          let condition_met = false;
+          let reports_condition_met: boolean = false;
 
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                condition_met = true;
+                reports_condition_met = true;
               }
               break;
             case ">":
               if (report_value > condition_threshold) {
-                condition_met = true;
+                reports_condition_met = true;
               }
               break;
             case "==":
               if (report_value == condition_threshold) {
-                condition_met = true;
+                reports_condition_met = true;
               }
               break;
             default:
               break;
           }
 
-          if (!condition_met) {
+          if (!reports_condition_met) {
             condition_met_and_scope = false;
             break;
           }
