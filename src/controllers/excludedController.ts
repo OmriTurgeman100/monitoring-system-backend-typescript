@@ -25,7 +25,7 @@ export const delete_excluded_report: RequestHandler = async (req, res, next) => 
     const parent: number = req.body.parent;
 
     const excluded = pool.query(
-      "update reports set excluded = 'true' where report_id = $1 and parent = $2",
+      "update reports set excluded = 'false' where report_id = $1 and parent = $2",
       [report_id, parent]
     );
 
