@@ -17,7 +17,7 @@ const tree_rules_eval = async (report_parent: number) => {
     "select * from rules where parent_node_id = $1",
     [report_parent]
   );
-
+  // TODO make it override the parent above.
   const nodes_data = nodes.rows;
 
   const reports_data = reports.rows;
