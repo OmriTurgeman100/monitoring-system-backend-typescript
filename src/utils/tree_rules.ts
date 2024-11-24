@@ -44,7 +44,7 @@ const tree_rules_eval = async (report_parent: number) => {
     if (rule.conditions.or) {
       // TODO, might check if we refer to a report or a node.
       for (const condition of rule.conditions.or) {
-        console.log("or");
+        // console.log("or");
 
         if (condition.node_id) {
           const node = nodes_data.find((node) => {
@@ -53,10 +53,10 @@ const tree_rules_eval = async (report_parent: number) => {
 
           if (node && node.status === condition.status) {
 
-            console.log('nodes')
-            console.log(node.status);
+            // console.log('nodes')
+            // console.log(node.status);
 
-            console.log(condition.status);
+            // console.log(condition.status);
             // case_matched = true;
             // break;
           }
@@ -68,7 +68,7 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           console.log(report.value)
-          console.log(report.operator)
+          // console.log(report.operator) // ! operator doesn't exist on the normal reports table, only on condition, this is why we get undefined.
           console.log(report.report_id)
 
 
@@ -78,7 +78,7 @@ const tree_rules_eval = async (report_parent: number) => {
       }
     }
 
-    console.log(case_matched);
+    // console.log(case_matched);
     // if (rule.conditions.and) {
     //   // TODO, might check if we refer to a report or a node.
     //   for (const condition of rule.conditions.and) {
