@@ -86,11 +86,13 @@ const tree_rules_eval = async (report_parent: number) => {
       // TODO, might check if we refer to a report or a node.
       
       for (const condition of rule.conditions.and) {
-        console.log("and");
-        console.log(condition);
+
+        let condition_met_and_scope:boolean = true
+        // console.log("and");
+        // console.log(condition);
 
         if (condition.node_id) {
-          console.log("node_ind");
+          
         }
 
         if (condition.report_id) {
