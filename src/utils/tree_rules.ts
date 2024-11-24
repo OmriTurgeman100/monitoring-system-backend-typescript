@@ -114,38 +114,41 @@ const tree_rules_eval = async (report_parent: number) => {
           const condition_operator: string = condition.operator;
           const condition_threshold: number = condition.value;
 
-          let condition_met = false;
+          let local_reports_condition_met: boolean = false;
 
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                condition_met = true;
+                local_reports_condition_met = true;
               }
               break;
             case ">":
               if (report_value > condition_threshold) {
-                condition_met = true;
+                local_reports_condition_met = true;
               }
               break;
             case "==":
               if (report_value == condition_threshold) {
-                condition_met = true;
+                local_reports_condition_met = true;
               }
               break;
             default:
               break;
           }
           // * if conidion met will be set to false, we will break out the loop.
-          if (!condition_met) {
+          if (!local_reports_condition_met) {
             reports_condition_met = false;
             break;
           }
         }
       }
 
+      console.log(`nodes ${nodes_conditions_met}`);
       console.log(`reports ${reports_condition_met}`);
 
-      
+      if (nodes_conditions_met === true && reports_condition_met === true) {
+        case_matched = true;
+      }
     }
   }
 };
