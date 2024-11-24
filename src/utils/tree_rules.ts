@@ -52,16 +52,29 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (node && node.status === condition.status) {
-            console.log(node.status)
+            console.log(node.status);
 
-            console.log(condition.status)
+            console.log(condition.status);
             // case_matched = true;
             // break;
           }
         }
 
         if (condition.report_id) {
-          // console.log("report");
+          const report = reports_data.find((report) => {
+            return report.report_id === condition.report_id;
+          });
+
+          if (report && report.status === condition.status) {
+            console.log(`match`)
+            console.log(`report status is`)
+            console.log(report.status)
+
+            console.log(`condition status`)
+            console.log(condition.status)
+          }
+          
+   
         }
       }
     }
