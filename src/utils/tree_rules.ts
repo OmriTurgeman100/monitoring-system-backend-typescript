@@ -61,19 +61,16 @@ const tree_rules_eval = async (report_parent: number) => {
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                console.log(1)
                 case_matched = true;
               }
               break;
             case ">":
               if (report_value > condition_threshold) {
-                console.log(2)
                 case_matched = true;
               }
               break;
             case "==":
               if (report_value == condition_threshold) {
-                console.log(3)
                 case_matched = true;
               }
               break;
