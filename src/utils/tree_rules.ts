@@ -52,13 +52,11 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (node && node.status === condition.status) {
-
             // console.log('nodes')
             // console.log(node.status);
-
             // console.log(condition.status);
-            // case_matched = true;
-            // break;
+            case_matched = true;
+            break;
           }
         }
 
@@ -67,13 +65,17 @@ const tree_rules_eval = async (report_parent: number) => {
             return report.report_id === condition.report_id;
           });
 
-          console.log(report.value)
-          // console.log(report.operator) // ! operator doesn't exist on the normal reports table, only on condition, this is why we get undefined.
-          console.log(report.report_id)
+          const report_value: number = report.value;
+          const condition_operator: string = condition.operator;
 
+          const condition_threshold: number = condition.value;
 
-          
-   
+          switch (condition_operator) {
+            case "<":
+              console.log("test");
+          }
+
+  
         }
       }
     }
