@@ -84,16 +84,25 @@ const tree_rules_eval = async (report_parent: number) => {
     console.log(case_matched);
     if (rule.conditions.and) {
       // TODO, might check if we refer to a report or a node.
-      
-      for (const condition of rule.conditions.and) {
 
-        let condition_met_and_scope:boolean = true
+      for (const condition of rule.conditions.and) {
+        let condition_met_and_scope: boolean = true;
         // console.log("and");
         // console.log(condition);
 
         if (condition.node_id) {
-          
+          const node = nodes_data.find((node) => {
+            return node.node_id === condition.node_id;
+          });
+
+          if (!node || node.status !== condition.status) {
+            condition_met_and_scope = false;
+            break;
+          }
         }
+        
+        console.log('and block')
+        console.log(condition_met_and_scope);
 
         if (condition.report_id) {
           console.log("report");
