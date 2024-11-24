@@ -4,17 +4,17 @@ const tree_rules_eval = async (report_parent: number) => {
   let parent: number = report_parent; // * might use it in the future to examine rules and climb to the root.
 
   const nodes = await pool.query("select * from nodes where parent = $1", [
-    report_parent,
+    parent,
   ]);
 
   const reports = await pool.query(
     "SELECT DISTINCT ON (report_id) id, report_id, parent, title, description, value, time FROM reports WHERE parent = $1 ORDER BY report_id, time DESC",
-    [report_parent]
+    [parent]
   );
 
   const rules = await pool.query(
     "select * from rules where parent_node_id = $1",
-    [report_parent]
+    [parent]
   );
 
   const nodes_data = nodes.rows;
