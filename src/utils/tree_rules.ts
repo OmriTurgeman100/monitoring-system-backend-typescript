@@ -3,7 +3,6 @@ import pool from "../database/db";
 const tree_rules_eval = async (report_parent: number) => {
   let parent: number = report_parent; // * might use it in the future to examine rules and climb to the root.
 
-  // TODO make it run as a tree, until it reaches the root node.
   const nodes = await pool.query("select * from nodes where parent = $1", [
     report_parent,
   ]);
@@ -17,7 +16,7 @@ const tree_rules_eval = async (report_parent: number) => {
     "select * from rules where parent_node_id = $1",
     [report_parent]
   );
-  // TODO make it override the parent above.
+
   const nodes_data = nodes.rows;
 
   const reports_data = reports.rows;
@@ -31,55 +30,51 @@ const tree_rules_eval = async (report_parent: number) => {
 
     let case_matched: boolean = false;
 
-    // if (rule.conditions.or) {
-    //   for (const condition of rule.conditions.or) {
-    //     // TODO, might check if we refer to a report or a node.
+    if (rule.conditions.or) {
+      for (const condition of rule.conditions.or) {
+        if (condition.node_id) {
+          const node = nodes_data.find((node) => {
+            return node.node_id === condition.node_id;
+          });
 
-    //     if (condition.node_id) {
-    //       const node = nodes_data.find((node) => {
-    //         return node.node_id === condition.node_id;
-    //       });
+          if (node && node.status === condition.status) {
+            case_matched = true;
+            break;
+          }
+        }
 
-    //       if (node && node.status === condition.status) {
-    //         case_matched = true;
-    //         break;
-    //       }
-    //     }
+        if (condition.report_id) {
+          const report = reports_data.find((report) => {
+            return report.report_id === condition.report_id;
+          });
 
-    //     if (condition.report_id) {
-    //       const report = reports_data.find((report) => {
-    //         return report.report_id === condition.report_id;
-    //       });
+          const report_value: number = report.value;
+          const condition_operator: string = condition.operator;
 
-    //       const report_value: number = report.value;
-    //       const condition_operator: string = condition.operator;
+          const condition_threshold: number = condition.value;
 
-    //       const condition_threshold: number = condition.value;
-
-    //       switch (condition_operator) {
-    //         case "<":
-    //           if (report_value < condition_threshold) {
-    //             case_matched = true;
-    //           }
-    //           break;
-    //         case ">":
-    //           if (report_value > condition_threshold) {
-    //             case_matched = true;
-    //           }
-    //           break;
-    //         case "==":
-    //           if (report_value == condition_threshold) {
-    //             case_matched = true;
-    //           }
-    //           break;
-    //         default:
-    //           null;
-    //       }
-    //     }
-    //   }
-    // }
-
-    // console.log(case_matched)
+          switch (condition_operator) {
+            case "<":
+              if (report_value < condition_threshold) {
+                case_matched = true;
+              }
+              break;
+            case ">":
+              if (report_value > condition_threshold) {
+                case_matched = true;
+              }
+              break;
+            case "==":
+              if (report_value == condition_threshold) {
+                case_matched = true;
+              }
+              break;
+            default:
+              null;
+          }
+        }
+      }
+    }
 
     if (rule.conditions.and && case_matched === false) {
       let nodes_conditions_met: boolean = true;
