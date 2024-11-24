@@ -52,6 +52,9 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (node && node.status === condition.status) {
+            console.log(node.status)
+
+            console.log(condition.status)
             case_matched = true;
             break;
           }
