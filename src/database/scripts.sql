@@ -15,6 +15,7 @@ create table reports (
 	title VARCHAR(50) NOT NULL,
 	description VARCHAR(50) NOT NULL,
 	value INTEGER,
+	excluded VARCHAR(50) DEFAULT 'false',
 	time TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

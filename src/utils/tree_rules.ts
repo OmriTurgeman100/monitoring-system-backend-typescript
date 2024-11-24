@@ -32,9 +32,8 @@ const tree_rules_eval = async (report_parent: number) => {
     let case_matched: boolean = false;
 
     if (rule.conditions.or) {
-      // TODO, might check if we refer to a report or a node.
       for (const condition of rule.conditions.or) {
-        // console.log("or");
+        // TODO, might check if we refer to a report or a node.
 
         if (condition.node_id) {
           const node = nodes_data.find((node) => {
@@ -62,8 +61,24 @@ const tree_rules_eval = async (report_parent: number) => {
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                console.log("test");
+                console.log(1)
+                case_matched = true;
               }
+              break;
+            case ">":
+              if (report_value > condition_threshold) {
+                console.log(2)
+                case_matched = true;
+              }
+              break;
+            case "==":
+              if (report_value == condition_threshold) {
+                console.log(3)
+                case_matched = true;
+              }
+              break;
+            default:
+              null;
           }
         }
       }
@@ -86,7 +101,7 @@ const tree_rules_eval = async (report_parent: number) => {
     //   }
     // }
 
-    // console.log(`case matched is ${case_matched}`);
+    console.log(`case matched is ${case_matched}`);
   }
 };
 
