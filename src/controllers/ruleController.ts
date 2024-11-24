@@ -21,7 +21,7 @@ export const post_rules: RequestHandler = async (req, res, next) => {
 
     const rules = await pool.query(
       "insert into rules (parent_node_id, conditions, action) values ($1, $2, $3)",
-      [parent_id, JSON.stringify(conditions), action]
+      [parent_id, JSON.stringify(conditions), action] // * must jsonify the data, postgres accept values as bson
     );
 
     res.status(201).json({ message: "The POST request was successful" });
