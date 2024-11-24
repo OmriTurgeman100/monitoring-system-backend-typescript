@@ -79,35 +79,35 @@ const tree_rules_eval = async (report_parent: number) => {
       }
     }
 
-    if (rule.conditions.and) {
-      let condition_met_and_scope: boolean = true;
-      // TODO, might check if we refer to a report or a node.
+    // if (rule.conditions.and) {
+    //   let condition_met_and_scope: boolean = true;
+    //   // TODO, might check if we refer to a report or a node.
 
-      for (const condition of rule.conditions.and) {
-        // console.log("and");
-        // console.log(condition);
+    //   for (const condition of rule.conditions.and) {
+    //     // console.log("and");
+    //     // console.log(condition);
 
-        if (condition.node_id) {
-          const node = nodes_data.find((node) => {
-            return node.node_id === condition.node_id;
-          });
+    //     if (condition.node_id) {
+    //       const node = nodes_data.find((node) => {
+    //         return node.node_id === condition.node_id;
+    //       });
 
-          if (!node || node.status !== condition.status) {
-            console.log(node.status);
+    //       if (node || node.status !== condition.status) {
+    //         console.log(node.status);
 
-            console.log(condition.status);
-            condition_met_and_scope = false;
-            break;
-          }
-        }
+    //         console.log(condition.status);
+    //         condition_met_and_scope = false;
+    //         break;
+    //       }
+    //     }
 
-        // if (condition.report_id) {
-        //   console.log("report");
-        // }
-      }
-      console.log("and block");
-      console.log(condition_met_and_scope);
-    }
+    //     // if (condition.report_id) {
+    //     //   console.log("report");
+    //     // }
+    //   }
+    //   console.log("and block");
+    //   console.log(condition_met_and_scope);
+    // }
 
     // console.log(`case matched is ${case_matched}`);
   }
