@@ -70,9 +70,13 @@ const tree_rules_eval = async (report_parent: number) => {
 
           const condition_threshold: number = condition.value;
 
+          console.log(report_value, condition_operator, condition_threshold)
+
           switch (condition_operator) {
             case "<":
-              console.log("test");
+              if (report_value < condition_threshold) {
+                console.log('test')
+              }
           }
 
   
