@@ -63,6 +63,7 @@ const tree_rules_eval = async (report_parent: number) => {
       }
     }
 
+    console.log(case_matched);
     // if (rule.conditions.and) {
     //   // TODO, might check if we refer to a report or a node.
     //   for (const condition of rule.conditions.and) {
