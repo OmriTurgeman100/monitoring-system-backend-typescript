@@ -81,22 +81,22 @@ const tree_rules_eval = async (report_parent: number) => {
       }
     }
 
-    // console.log(case_matched);
-    // if (rule.conditions.and) {
-    //   // TODO, might check if we refer to a report or a node.
-    //   for (const condition of rule.conditions.and) {
-    //     console.log("and");
-    //     console.log(condition);
+    console.log(case_matched);
+    if (rule.conditions.and) {
+      // TODO, might check if we refer to a report or a node.
+      for (const condition of rule.conditions.and) {
+        console.log("and");
+        console.log(condition);
 
-    //     if (condition.node_id) {
-    //       console.log("node_ind");
-    //     }
+        if (condition.node_id) {
+          console.log("node_ind");
+        }
 
-    //     if (condition.report_id) {
-    //       console.log("report");
-    //     }
-    //   }
-    // }
+        if (condition.report_id) {
+          console.log("report");
+        }
+      }
+    }
 
     console.log(`case matched is ${case_matched}`);
   }
