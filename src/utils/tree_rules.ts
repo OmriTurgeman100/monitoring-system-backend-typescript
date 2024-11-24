@@ -78,7 +78,7 @@ const tree_rules_eval = async (report_parent: number) => {
         }
       }
     }
-    // TODO, test why you get false agian
+
     if (rule.conditions.and) {
       let condition_met_and_scope: boolean = true;
 
@@ -139,7 +139,6 @@ const tree_rules_eval = async (report_parent: number) => {
           }
         }
       }
-      console.log("and block");
       console.log(condition_met_and_scope);
     }
   }
