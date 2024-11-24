@@ -29,7 +29,7 @@ const tree_rules_eval = async (report_parent: number) => {
     console.log(node);
   }
 
-  console.log(`reports_data`);
+  // console.log(`reports_data`);
   for (const report of reports_data) {
     console.log(report);
   }
