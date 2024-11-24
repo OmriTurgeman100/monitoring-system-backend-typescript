@@ -1,0 +1,33 @@
+http://127.0.0.1/api/v1/rules/13
+
+{
+    "conditions": {
+        "and": [
+            {
+                "node_id": 9,
+                "status": "up"
+            },
+            {
+                "node_id": 10,
+                "status": "up"
+            },
+            {
+                "report_id": "test",
+                "operator": "<",
+                "value": 50
+            }
+        ],
+        "or": [
+            {
+                "report_id": "test",
+                "operator": "<",
+                "value": 50
+            },
+            {
+                "node_id": 10,
+                "status": "up"
+            }
+        ]
+    },
+    "action": "up"
+}
