@@ -90,7 +90,11 @@ const tree_rules_eval = async (report_parent: number) => {
             return node.node_id === condition.node_id;
           });
 
-          if (node || node.status !== condition.status) {
+          if (!node) {
+            continue;
+          }
+
+          if (node.status !== condition.status) {
             console.log(node.status);
 
             console.log(condition.status);
