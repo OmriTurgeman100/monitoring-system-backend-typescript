@@ -20,17 +20,18 @@ export const post_reports: RequestHandler = async (req, res, next) => {
 
     if (!parent) {
       const reports = await pool.query(
-        "select distinct on (parent) parent, report_id, title from reports where report_id = $1",
+        "select distinct on (parent) parent, report_id, title, excluded from reports where report_id = $1",
         [report_id]
       );
 
       for (const report of reports.rows) {
         if (report.parent) {
           const report_parent: number = report.parent;
+          const excluded: string = report.excluded;
 
           const created_report = await pool.query(
-            "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
-            [report_id, report_parent, title, description, value]
+            "insert into reports (report_id, parent, title, description, value, excluded) values ($1, $2, $3, $4, $5, $6) RETURNING *;",
+            [report_id, report_parent, title, description, value, excluded]
           );
 
           await tree_rules_eval(report_parent);
