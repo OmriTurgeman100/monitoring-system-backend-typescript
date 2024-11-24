@@ -31,57 +31,59 @@ const tree_rules_eval = async (report_parent: number) => {
 
     let case_matched: boolean = false;
 
-    if (rule.conditions.or) {
-      for (const condition of rule.conditions.or) {
-        // TODO, might check if we refer to a report or a node.
+    // if (rule.conditions.or) {
+    //   for (const condition of rule.conditions.or) {
+    //     // TODO, might check if we refer to a report or a node.
 
-        if (condition.node_id) {
-          const node = nodes_data.find((node) => {
-            return node.node_id === condition.node_id;
-          });
+    //     if (condition.node_id) {
+    //       const node = nodes_data.find((node) => {
+    //         return node.node_id === condition.node_id;
+    //       });
 
-          if (node && node.status === condition.status) {
-            case_matched = true;
-            break;
-          }
-        }
+    //       if (node && node.status === condition.status) {
+    //         case_matched = true;
+    //         break;
+    //       }
+    //     }
 
-        if (condition.report_id) {
-          const report = reports_data.find((report) => {
-            return report.report_id === condition.report_id;
-          });
+    //     if (condition.report_id) {
+    //       const report = reports_data.find((report) => {
+    //         return report.report_id === condition.report_id;
+    //       });
 
-          const report_value: number = report.value;
-          const condition_operator: string = condition.operator;
+    //       const report_value: number = report.value;
+    //       const condition_operator: string = condition.operator;
 
-          const condition_threshold: number = condition.value;
+    //       const condition_threshold: number = condition.value;
 
-          switch (condition_operator) {
-            case "<":
-              if (report_value < condition_threshold) {
-                case_matched = true;
-              }
-              break;
-            case ">":
-              if (report_value > condition_threshold) {
-                case_matched = true;
-              }
-              break;
-            case "==":
-              if (report_value == condition_threshold) {
-                case_matched = true;
-              }
-              break;
-            default:
-              null;
-          }
-        }
-      }
-    }
+    //       switch (condition_operator) {
+    //         case "<":
+    //           if (report_value < condition_threshold) {
+    //             case_matched = true;
+    //           }
+    //           break;
+    //         case ">":
+    //           if (report_value > condition_threshold) {
+    //             case_matched = true;
+    //           }
+    //           break;
+    //         case "==":
+    //           if (report_value == condition_threshold) {
+    //             case_matched = true;
+    //           }
+    //           break;
+    //         default:
+    //           null;
+    //       }
+    //     }
+    //   }
+    // }
+
+    // console.log(case_matched)
 
     if (rule.conditions.and && case_matched === false) {
       let nodes_conditions_met: boolean = true;
-      let reports_condition_met: boolean = false;
+      let reports_condition_met: boolean = true;
 
       for (const condition of rule.conditions.and) {
         if (condition.node_id) {
@@ -112,31 +114,38 @@ const tree_rules_eval = async (report_parent: number) => {
           const condition_operator: string = condition.operator;
           const condition_threshold: number = condition.value;
 
+          let condition_met = false;
+
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                reports_condition_met = true;
+                condition_met = true;
               }
               break;
             case ">":
               if (report_value > condition_threshold) {
-                reports_condition_met = true;
+                condition_met = true;
               }
               break;
             case "==":
               if (report_value == condition_threshold) {
-                reports_condition_met = true;
+                condition_met = true;
               }
               break;
             default:
               break;
           }
-
-          if (!reports_condition_met) {
+          // * if conidion met will be set to false, we will break out the loop.
+          if (!condition_met) {
+            reports_condition_met = false;
             break;
           }
         }
       }
+
+      console.log(`reports ${reports_condition_met}`);
+
+      
     }
   }
 };
