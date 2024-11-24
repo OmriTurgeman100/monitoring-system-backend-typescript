@@ -79,8 +79,9 @@ const tree_rules_eval = async (report_parent: number) => {
       }
     }
 
-    if (rule.conditions.and) {
-      let condition_met_and_scope: boolean = true;
+    if (rule.conditions.and && case_matched === false) {
+      let nodes_conditions_met: boolean = true;
+      let reports_condition_met: boolean = false;
 
       for (const condition of rule.conditions.and) {
         if (condition.node_id) {
@@ -93,7 +94,7 @@ const tree_rules_eval = async (report_parent: number) => {
           }
 
           if (node.status !== condition.status) {
-            condition_met_and_scope = false;
+            nodes_conditions_met = false;
             break;
           }
         }
@@ -110,8 +111,6 @@ const tree_rules_eval = async (report_parent: number) => {
           const report_value: number = report.value;
           const condition_operator: string = condition.operator;
           const condition_threshold: number = condition.value;
-
-          let reports_condition_met: boolean = false;
 
           switch (condition_operator) {
             case "<":
@@ -134,12 +133,10 @@ const tree_rules_eval = async (report_parent: number) => {
           }
 
           if (!reports_condition_met) {
-            condition_met_and_scope = false;
             break;
           }
         }
       }
-      console.log(condition_met_and_scope);
     }
   }
 };
