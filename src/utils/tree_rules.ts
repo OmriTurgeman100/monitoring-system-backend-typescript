@@ -80,7 +80,7 @@ const tree_rules_eval = async (report_parent: number) => {
 
     //   console.log(case_matched);
     // }
-
+    // TODO, test why you get false agian
     if (rule.conditions.and) {
       let condition_met_and_scope: boolean = true;
 
