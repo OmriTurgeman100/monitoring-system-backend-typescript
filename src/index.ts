@@ -13,5 +13,5 @@ app.use("/api/v1/reports", reportRouter);
 app.use("/api/v1/rules", rulesRouter);
 
 app.listen(port, () => {
-  console.log(`Server running at http://localhost:${port}/`);
+  console.log(`🚀 Server is up and running! Access it at: http://localhost:${port}/`);
 });
