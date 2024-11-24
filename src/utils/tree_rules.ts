@@ -56,8 +56,6 @@ const tree_rules_eval = async (report_parent: number) => {
 
           const condition_threshold: number = condition.value;
 
-          console.log(report_value, condition_operator, condition_threshold);
-
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
@@ -87,8 +85,6 @@ const tree_rules_eval = async (report_parent: number) => {
 
       for (const condition of rule.conditions.and) {
         let condition_met_and_scope: boolean = true;
-        // console.log("and");
-        // console.log(condition);
 
         if (condition.node_id) {
           const node = nodes_data.find((node) => {
@@ -96,17 +92,20 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (!node || node.status !== condition.status) {
+            console.log(node.status);
+
+            console.log(condition.status);
             condition_met_and_scope = false;
             break;
           }
         }
-        
-        console.log('and block')
+
+        console.log("and block");
         console.log(condition_met_and_scope);
 
-        if (condition.report_id) {
-          console.log("report");
-        }
+        // if (condition.report_id) {
+        //   console.log("report");
+        // }
       }
     }
 
