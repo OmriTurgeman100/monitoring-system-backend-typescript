@@ -145,6 +145,10 @@ const tree_rules_eval = async (report_parent: number) => {
         case_matched = true;
       }
     }
+
+    if (case_matched == true) {
+      console.log("rule has matched");
+    }
   }
 };
 
