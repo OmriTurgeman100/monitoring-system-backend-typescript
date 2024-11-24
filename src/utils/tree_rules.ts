@@ -42,9 +42,6 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (node && node.status === condition.status) {
-            // console.log('nodes')
-            // console.log(node.status);
-            // console.log(condition.status);
             case_matched = true;
             break;
           }
@@ -60,16 +57,14 @@ const tree_rules_eval = async (report_parent: number) => {
 
           const condition_threshold: number = condition.value;
 
-          console.log(report_value, condition_operator, condition_threshold)
+          console.log(report_value, condition_operator, condition_threshold);
 
           switch (condition_operator) {
             case "<":
               if (report_value < condition_threshold) {
-                console.log('test')
+                console.log("test");
               }
           }
-
-  
         }
       }
     }
