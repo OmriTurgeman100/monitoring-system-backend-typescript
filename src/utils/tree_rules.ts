@@ -24,15 +24,15 @@ const tree_rules_eval = async (report_parent: number) => {
 
   const rules_data = rules.rows;
 
-  // console.log(`nodes_data`);
-  for (const node of nodes_data) {
-    console.log(node);
-  }
+  // // console.log(`nodes_data`);
+  // for (const node of nodes_data) {
+  //   console.log(node);
+  // }
 
-  // console.log(`reports_data`);
-  for (const report of reports_data) {
-    console.log(report);
-  }
+  // // console.log(`reports_data`);
+  // for (const report of reports_data) {
+  //   console.log(report);
+  // }
 
   for (const rule of rules_data) {
     const rule_id: number = rule.rule_id;
@@ -45,35 +45,45 @@ const tree_rules_eval = async (report_parent: number) => {
       // TODO, might check if we refer to a report or a node.
       for (const condition of rule.conditions.or) {
         console.log("or");
-        console.log(condition);
 
         if (condition.node_id) {
-          console.log("node_ind");
+          const node = nodes_data.find((node) => {
+            return node.node_id === condition.node_id;
+          });
+
+
+         console.log(condition.node)
+
+         condition.log(node)
+
+
+     
         }
 
         if (condition.report_id) {
-          console.log("report");
+
+          // console.log("report");
         }
       }
     }
 
-    if (rule.conditions.and) {
-      // TODO, might check if we refer to a report or a node.
-      for (const condition of rule.conditions.and) {
-        console.log("and");
-        console.log(condition);
+    // if (rule.conditions.and) {
+    //   // TODO, might check if we refer to a report or a node.
+    //   for (const condition of rule.conditions.and) {
+    //     console.log("and");
+    //     console.log(condition);
 
-        if (condition.node_id) {
-          console.log("node_ind");
-        }
+    //     if (condition.node_id) {
+    //       console.log("node_ind");
+    //     }
 
-        if (condition.report_id) {
-          console.log("report");
-        }
-      }
-    }
+    //     if (condition.report_id) {
+    //       console.log("report");
+    //     }
+    //   }
+    // }
 
-    console.log(`case matched is ${case_matched}`);
+    // console.log(`case matched is ${case_matched}`);
   }
 };
 
