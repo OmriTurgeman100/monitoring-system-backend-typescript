@@ -67,14 +67,11 @@ const tree_rules_eval = async (report_parent: number) => {
             return report.report_id === condition.report_id;
           });
 
-          // if (report && report.status === condition.status) {
-          //   console.log(`match`)
-          //   console.log(`report status is`)
-          //   console.log(report.status)
+          console.log(report.value)
+          console.log(report.operator)
+          console.log(report.report_id)
 
-          //   console.log(`condition status`)
-          //   console.log(condition.status)
-          // }
+
           
    
         }
