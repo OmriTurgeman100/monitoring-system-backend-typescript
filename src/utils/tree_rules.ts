@@ -52,6 +52,8 @@ const tree_rules_eval = async (report_parent: number) => {
           });
 
           if (node && node.status === condition.status) {
+
+            console.log('nodes')
             console.log(node.status);
 
             console.log(condition.status);
@@ -65,14 +67,14 @@ const tree_rules_eval = async (report_parent: number) => {
             return report.report_id === condition.report_id;
           });
 
-          if (report && report.status === condition.status) {
-            console.log(`match`)
-            console.log(`report status is`)
-            console.log(report.status)
+          // if (report && report.status === condition.status) {
+          //   console.log(`match`)
+          //   console.log(`report status is`)
+          //   console.log(report.status)
 
-            console.log(`condition status`)
-            console.log(condition.status)
-          }
+          //   console.log(`condition status`)
+          //   console.log(condition.status)
+          // }
           
    
         }
