@@ -1,7 +1,7 @@
 import { RequestHandler } from "express";
 import pool from "../database/db";
 import tree_rules_eval from "../utils/tree_rules";
-import { Request, Response, NextFunction } from "express";
+// import { Request, Response, NextFunction } from "express";
 
 export const get_distinct_reports: RequestHandler = async (req, res, next) => {
   try {
