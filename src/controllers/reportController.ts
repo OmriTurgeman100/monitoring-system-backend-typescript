@@ -19,7 +19,6 @@ export const post_reports: RequestHandler = async (req, res, next) => {
     const { report_id, parent, title, description, value } = req.body;
 
     if (!parent) {
-      console.log("no parent");
       const reports = await pool.query(
         "select distinct on (parent) parent, report_id, title, excluded from reports where report_id = $1",
         [report_id]
@@ -35,37 +34,15 @@ export const post_reports: RequestHandler = async (req, res, next) => {
             [report_id, report_parent, title, description, value, excluded]
           );
 
-          // await tree_rules_eval(report_parent);
+          await tree_rules_eval(report_parent);
         }
       }
     }
 
-    if (parent) {
-      const reports = await pool.query(
-        "select distinct on (parent) parent, report_id, title, excluded from reports where report_id = $1 and parent is not null",
-        [report_id]
-      );
-
-      if (reports.rows.length > 0) {
-        for (const report of reports.rows) {
-          const report_parent: number = report.parent;
-
-          if (report_parent != null && report_parent != parent) {
-            console.log("error");
-          }
-        }
-      } else {
-        const created_report = await pool.query(
-          "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
-          [report_id, parent, title, description, value]
-        );
-      }
-    }
-
-    // const created_report = await pool.query(
-    //   "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
-    //   [report_id, parent, title, description, value]
-    // );
+    const created_report = await pool.query(
+      "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
+      [report_id, parent, title, description, value]
+    );
 
     res.status(201).json({ message: "The POST request was successful" });
   } catch (error) {
