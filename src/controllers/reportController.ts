@@ -62,6 +62,7 @@ export const post_reports: RequestHandler = async (req, res, next) => {
       }
     }
 
+    // * make it run once only.
     await pool.query(
       "insert into reports (report_id, parent, title, description, value) values ($1, $2, $3, $4, $5) RETURNING *;",
       [report_id, parent, title, description, value]
