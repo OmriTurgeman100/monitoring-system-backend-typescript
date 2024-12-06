@@ -36,6 +36,8 @@ export const post_reports: RequestHandler = async (req, res, next) => {
           );
 
           // await tree_rules_eval(report_parent); // * causes bugs, on comment for now.
+
+          // * make optional return statement to break out of the loop.
         }
       }
     }
